@@ -2,23 +2,21 @@ var gulp = require("gulp");
 var wiredep = require("wiredep");
 var inject = require("gulp-inject");
 var connect = require("gulp-connect");
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
 
 gulp.task("inject-vendor", function() {
-	wiredep({src: "./app/index.html"});
+	wiredep({src: "./src/index.html"});
 });
 
 gulp.task("inject-own", function() {
-	gulp.src("./app/index.html")
-		.pipe(inject(gulp.src(["./app/component/*.js", ".app/main/*.js", "./app/*.js", "./assets/**/*.js", "./assets/**/*.css"], {read: false})))
-		.pipe(gulp.dest("./app"));
-});
-
-gulp.task("browserify", function() {
-    return browserify("./app/app.module.js").bundle()
-		.pipe(source("main.js"))
-        .pipe(gulp.dest("./dist/js/"));
+	gulp.src("./src/index.html")
+		.pipe(inject(gulp.src([,
+      "./src/assets/**/*.css",
+      "./src/assets/**/*.js", 
+      "./src/app/component/**/*.js", 
+      "./src/app/main/**/*.js", 
+      "./src/app/*.js"
+    ], {read: false})))
+		.pipe(gulp.dest("./src/"));
 });
 
 gulp.task("connect", function () {
