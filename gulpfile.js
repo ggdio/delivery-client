@@ -9,19 +9,22 @@ gulp.task("inject-vendor", function() {
 
 gulp.task("inject-own", function() {
 	gulp.src("./src/index.html")
-		.pipe(inject(gulp.src([,
+		.pipe(inject(gulp.src([
       "./src/assets/**/*.css",
       "./src/assets/**/*.js", 
-      "./src/app/component/**/*.js", 
-      "./src/app/main/**/*.js", 
-      "./src/app/*.js"
+      "./src/app/*.module.js",
+      "./src/app/*.js",
+      "./src/app/common/**/*.module.js", 
+      "./src/app/common/**/*.js", 
+      "./src/app/core/**/*.module.js", 
+      "./src/app/core/**/*.js", 
     ], {read: false})))
 		.pipe(gulp.dest("./src/"));
 });
 
-gulp.task("connect", function () {
+gulp.task("http", function () {
   connect.server({
-    root: "dist",
+    root: "./",
     port: 4000,
     livereload: true
   });
